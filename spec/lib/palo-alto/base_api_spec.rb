@@ -1,12 +1,20 @@
 require "palo-alto/base-api"
+require "palo-alto/helpers/rest"
 
 describe "PaloAlto::BaseApi" do
-  let(:host)        { "some.host" }
-  let(:port)        { "443" }
-  let(:ssl)         { false }
-  let(:username)    { "admin" }
-  let(:password)    { "admin" }
-  let(:api_version) { "6" }
+  let(:host)          { "some.host" }
+  let(:port)          { "443" }
+  let(:ssl)           { false }
+  let(:username)      { "admin" }
+  let(:password)      { "admin" }
+  let(:api_version)   { "6" }
+  let(:url)           { "https://#{host}:#{port}/api/" }
+  let(:auth_key)      { "039th90hg092h" }
+  let(:auth_response) { "<response status=\"success\">
+                           <result>
+                             <key>#{auth_key}</key>
+                           </result>
+                         </response>" }
 
   before do
     @api = PaloAlto::BaseApi.new(host:     host,
@@ -34,6 +42,10 @@ describe "PaloAlto::BaseApi" do
 
   it "has a password attribute" do
     expect(@api).to respond_to(:password)
+  end
+
+  it "has an auth_key attribute" do
+    expect(@api).to respond_to(:auth_key)
   end
 
   describe ".initialize" do
@@ -66,6 +78,22 @@ describe "PaloAlto::BaseApi" do
     it "returns the endpoint with secure protocol" do
       url = "http://#{host}:#{port}/api/"
       expect(@api.endpoint).to eq(url)
+    end
+  end
+
+  describe "private method" do
+    describe ".get_auth_key" do
+      it "returns the resulting auth_key from a request" do
+        expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(auth_response)
+
+        expect(@api.send(:get_auth_key)).to eq(auth_key)
+      end
+
+      it "returns nil when a HTTP request attempt is unsuccessful" do
+        expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(File.open(fixture_file("failure.xml")).read)
+
+        expect(@api.send(:get_auth_key)).to be_nil
+      end
     end
   end
 end

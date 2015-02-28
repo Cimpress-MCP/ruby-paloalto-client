@@ -1,3 +1,5 @@
+require "nokogiri"
+
 module PaloAlto
   class BaseApi
     attr_accessor :host, :port, :ssl, :username, :password
@@ -32,6 +34,33 @@ module PaloAlto
     # Construct and return the API endpoint
     def endpoint
       "http#{('s' if self.ssl)}://#{self.host}:#{self.port}/api/"
+    end
+
+    private
+
+    def get_auth_key
+      auth_key = nil
+
+      # establish the required options for the key request
+      options            = {}
+      options[:url]      = self.endpoint
+      options[:method]   = :get
+      options[:payload]  = { "type"     => "keygen",
+                             "user"     => self.username,
+                             "password" => self.password }
+
+      # get and parse the response for the key
+      http_response = PaloAlto::Helpers::Rest.make_request(options)
+      unless http_response.nil?
+        xml_data = Nokogiri::XML(http_response)
+        if xml_data.xpath('//response/@status').to_s == "success"
+          return xml_data.xpath('//response/result/key')[0].content
+        else
+          return nil
+        end
+      end
+
+      auth_key
     end
   end
 end
