@@ -59,7 +59,7 @@ Once you have your client "pa_client", you can continue to retrieve and manipula
 To obtain a list of all addresses, perform the following:
 
 ```bash
-pa_client.get_addresses
+pa_client.addresses
 
 => 
 ```
@@ -69,7 +69,7 @@ pa_client.get_addresses
 To obtain a list of all address groups, perform the following:
 
 ```bash
-pa_client.get_address_groups
+pa_client.address_groups
 
 => 
 ```
@@ -79,7 +79,7 @@ pa_client.get_address_groups
 To obtain a list of all policies, perform the following:
 
 ```bash
-pa_client.get_policies
+pa_client.policies
 
 => 
 ```
