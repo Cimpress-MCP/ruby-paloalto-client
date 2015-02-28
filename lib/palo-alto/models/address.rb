@@ -7,8 +7,8 @@ module PaloAlto
       #
       # == Attributes
       #
-      # * +name+ - Host where the PaloAlto device is located
-      # * +ip+   - Port on which the PaloAlto API service is listening
+      # * +name+ - Name of the address
+      # * +ip+   - IP of the address
       #
       # == Example
       #

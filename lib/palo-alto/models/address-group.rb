@@ -7,11 +7,11 @@ module PaloAlto
       #
       # == Attributes
       #
-      # * +name+ - Host where the PaloAlto device is located
+      # * +name+ - Name of the address group
       #
       # == Example
       #
-      #  PaloAlto::Models::AddressGroup.new name: 'address-1'
+      #  PaloAlto::Models::AddressGroup.new name: 'address-group-1'
       def initialize(name:)
         self.name = name
 
