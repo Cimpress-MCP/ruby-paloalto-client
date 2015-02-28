@@ -1,6 +1,7 @@
 # Ruby::Paloalto::Client
 
-TODO: Write a gem description
+Ruby client to interact with the PaloAlto Firewall and Panamera service
+for Version 6.X of the API.
 
 ## Installation
 
@@ -20,12 +21,65 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Initialization
 
-## Contributing
+To interface with a PaloAlto API endpoint, start by requiring the PaloAlto library:
 
-1. Fork it ( https://github.com/[my-github-username]/ruby-paloalto-client/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+```bash
+require 'palo-alto/client'
+
+=> true
+```
+
+Then, establish a connection to the PaloAlto API with which you wish to interact. For example, this
+PaloAlto device is running version 6 of the API and is located at 'localhost' running on port 443 (secure), and we are connecting with the following:
+
+- Host:        localhost
+- Port:        443
+- Username:    admin
+- Password     adminpass
+- SSL:         true
+- API Version: 6
+
+```bash
+pa_client = PaloAlto::Client.new host:        "localhost",
+                                 port:        "443",
+                                 username:    "admin",
+                                 password:    "adminpass",
+                                 ssl:         true,
+                                 api_version: "6"
+
+=> 
+```
+
+Once you have your client "pa_client", you can continue to retrieve and manipulate data within the PaloAlto target device.
+
+### Addresses
+
+To obtain a list of all addresses, perform the following:
+
+```bash
+pa_client.get_addresses
+
+=> 
+```
+
+### Address Groups
+
+To obtain a list of all address groups, perform the following:
+
+```bash
+pa_client.get_address_groups
+
+=> 
+```
+
+### Policies
+
+To obtain a list of all policies, perform the following:
+
+```bash
+pa_client.get_policies
+
+=> 
+```
