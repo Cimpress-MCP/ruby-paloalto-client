@@ -3,7 +3,7 @@ require "palo-alto/base-api"
 describe "PaloAlto::BaseApi" do
   let(:host)        { "some.host" }
   let(:port)        { "443" }
-  let(:ssl)         { true }
+  let(:ssl)         { false }
   let(:username)    { "admin" }
   let(:password)    { "admin" }
   let(:api_version) { "6" }
@@ -59,6 +59,13 @@ describe "PaloAlto::BaseApi" do
 
     it "assigns password" do
       expect(@api.password).to eq(password)
+    end
+  end
+
+  describe ".endpoint" do
+    it "returns the endpoint with secure protocol" do
+      url = "http://#{host}:#{port}/api/"
+      expect(@api.endpoint).to eq(url)
     end
   end
 end

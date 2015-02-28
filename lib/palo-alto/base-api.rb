@@ -28,5 +28,10 @@ module PaloAlto
 
       self
     end
+
+    # Construct and return the API endpoint
+    def endpoint
+      "http#{('s' if self.ssl)}://#{self.host}:#{self.port}/api/"
+    end
   end
 end
