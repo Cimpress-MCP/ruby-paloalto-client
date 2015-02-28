@@ -2,7 +2,7 @@ require "nokogiri"
 
 module PaloAlto
   class BaseApi
-    attr_accessor :host, :port, :ssl, :username, :password
+    attr_accessor :host, :port, :ssl, :username, :password, :auth_key
 
     # Create and returns a new PaloAlto::V6::Api instance with the given parameters
     #
@@ -28,6 +28,9 @@ module PaloAlto
       self.username = username
       self.password = password
 
+      # attempt to obtain the auth_key
+      raise "Exception attempting to obtain the auth_key" if (self.auth_key = get_auth_key).nil?
+
       self
     end
 
@@ -38,6 +41,7 @@ module PaloAlto
 
     private
 
+    # Perform a query to the API endpoint for an auth_key based on the credentials provided
     def get_auth_key
       auth_key = nil
 

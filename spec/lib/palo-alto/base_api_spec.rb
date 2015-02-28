@@ -8,7 +8,7 @@ describe "PaloAlto::BaseApi" do
   let(:username)      { "admin" }
   let(:password)      { "admin" }
   let(:api_version)   { "6" }
-  let(:url)           { "https://#{host}:#{port}/api/" }
+  let(:url)           { "http://#{host}:#{port}/api/" }
   let(:auth_key)      { "039th90hg092h" }
   let(:auth_response) { "<response status=\"success\">
                            <result>
@@ -17,6 +17,9 @@ describe "PaloAlto::BaseApi" do
                          </response>" }
 
   before do
+    FakeWeb.clean_registry
+    FakeWeb.register_uri(:get, url, :status => [ 200 ], :body => auth_response)
+
     @api = PaloAlto::BaseApi.new(host:     host,
                                  port:     port,
                                  ssl:      ssl,
@@ -71,6 +74,25 @@ describe "PaloAlto::BaseApi" do
 
     it "assigns password" do
       expect(@api.password).to eq(password)
+    end
+
+    it "obtains and assigns the auth_key" do
+      expect(@api.auth_key).to eq(auth_key)
+    end
+
+    describe "when an auth_key cannot be obtained" do
+      before do
+        FakeWeb.clean_registry
+        FakeWeb.register_uri(:get, url, :status => [ 401 ], :body => File.open(fixture_file("failure.xml")).read)
+      end
+
+      it "throws and exception" do
+        expect{ PaloAlto::BaseApi.new(host:     host,
+                                      port:     port,
+                                      ssl:      ssl,
+                                      username: username,
+                                      password: password) }.to raise_exception
+      end
     end
   end
 

@@ -1,3 +1,5 @@
+require "rest-client"
+
 module PaloAlto
   module Helpers
     class Rest

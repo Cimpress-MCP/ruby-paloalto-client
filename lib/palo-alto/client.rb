@@ -1,5 +1,6 @@
 require "palo-alto/client/version"
 require "palo-alto/base-api"
+require "palo-alto/helpers/rest"
 
 module PaloAlto
   module Client
