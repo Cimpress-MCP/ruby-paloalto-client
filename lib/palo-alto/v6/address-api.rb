@@ -22,7 +22,7 @@ module PaloAlto
         options[:payload] = { type:   "config",
                               action: "show",
                               key:    self.auth_key,
-                              xpath:  "/config/devices/entry/vsys/entry/address" }
+                              xpath:  "/config/devices/entry/vsys/entry" }
 
         html_result = Helpers::Rest.make_request(options)
 
@@ -32,7 +32,7 @@ module PaloAlto
         data = Nokogiri::XML(html_result)
 
         if data.xpath('//response/@status').to_s == "success"
-          data.xpath('//response/result/address/entry').each do |address|
+          data.xpath('//response/result/entry/address/entry').each do |address|
             address_list << PaloAlto::Models::Address.new(name: address.xpath('@name').to_s, ip: address.xpath('ip-netmask').first.content)
           end
         else

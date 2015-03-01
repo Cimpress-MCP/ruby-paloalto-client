@@ -1,6 +1,5 @@
 <response status="success">
   <result>
-    <address>
-    </address>
+    <entry name="test" src="tpl" admin="admin" time="2015/02/02 13:45:00">
   </result>
 </response>
