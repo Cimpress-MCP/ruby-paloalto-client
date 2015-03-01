@@ -48,7 +48,7 @@ module PaloAlto
       # establish the required options for the key request
       options            = {}
       options[:url]      = self.endpoint
-      options[:method]   = :get
+      options[:method]   = :post
       options[:payload]  = { "type"     => "keygen",
                              "user"     => self.username,
                              "password" => self.password }

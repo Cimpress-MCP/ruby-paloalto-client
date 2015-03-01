@@ -18,7 +18,7 @@ describe "PaloAlto::BaseApi" do
 
   before do
     FakeWeb.clean_registry
-    FakeWeb.register_uri(:get, url, :status => [ 200 ], :body => auth_response)
+    FakeWeb.register_uri(:post, url, :status => [ 200 ], :body => auth_response)
 
     @api = PaloAlto::BaseApi.new(host:     host,
                                  port:     port,
@@ -83,7 +83,7 @@ describe "PaloAlto::BaseApi" do
     describe "when an auth_key cannot be obtained" do
       before do
         FakeWeb.clean_registry
-        FakeWeb.register_uri(:get, url, :status => [ 401 ], :body => File.open(fixture_file("failure.xml")).read)
+        FakeWeb.register_uri(:post, url, :status => [ 401 ], :body => File.open(fixture_file("failure.xml")).read)
       end
 
       it "throws and exception" do
