@@ -2,10 +2,6 @@
   <result total-count="1" count="1">
     <devices src="tpl" admin="admin" time="2015/03/05 10:22:56">
       <entry name="localhost.localdomain" src="tpl" admin="admin" time="2015/03/05 10:22:56">
-        <vsys src="tpl" admin="jkarimi" time="2015/03/05 10:22:56">
-          <entry name="vsys1" src="tpl" admin="jkarimi" time="2015/03/05 10:22:56">
-          </entry>
-        </vsys>
         <deviceconfig>
           <system>
             <ip-address>2.2.2.2</ip-address>

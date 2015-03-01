@@ -1,5 +1,5 @@
 require "palo-alto/models/device"
-require "palo-alto/models/address-group"
+require "palo-alto/models/virtual-system"
 
 module PaloAlto
   module V6
@@ -36,6 +36,11 @@ module PaloAlto
           data.xpath('//response/result/devices/entry').each do |device_entry|
             device = PaloAlto::Models::Device.new(name: device_entry.xpath('@name').to_s,
                                                   ip:   device_entry.xpath('deviceconfig/system/ip-address').first.content)
+
+            # get all virtual_system members for the device
+            device_entry.xpath('vsys/entry').each do |vsys_entry|
+              device.virtual_systems << PaloAlto::Models::VirtualSystem.new(name: vsys_entry.xpath('@name').to_s)
+            end
 
             devices_list << device
           end
