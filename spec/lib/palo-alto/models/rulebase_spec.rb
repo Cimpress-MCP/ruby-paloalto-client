@@ -1,4 +1,4 @@
-require "palo-alto/models/rulebase"
+require "palo_alto/models/rulebase"
 
 describe "PaloAlto::Models::Rulebase" do
   let(:name) { "test-rulebase" }

@@ -1,6 +1,6 @@
-require "palo-alto/v6/device-api"
-require "palo-alto/helpers/rest"
-require "palo-alto/models/virtual-system"
+require "palo_alto/v6/device_api"
+require "palo_alto/helpers/rest"
+require "palo_alto/models/virtual_system"
 require "nokogiri"
 
 describe "PaloAlto::V6::DeviceApi" do

@@ -1,4 +1,4 @@
-require "palo-alto/models/address"
+require "palo_alto/models/address"
 
 module PaloAlto
   module V6

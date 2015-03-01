@@ -1,7 +1,7 @@
-require "palo-alto/v6/address-group-api"
-require "palo-alto/helpers/rest"
-require "palo-alto/models/address"
-require "palo-alto/models/address-group"
+require "palo_alto/v6/address_group_api"
+require "palo_alto/helpers/rest"
+require "palo_alto/models/address"
+require "palo_alto/models/address_group"
 require "nokogiri"
 
 describe "PaloAlto::V6::AddressGroupApi" do

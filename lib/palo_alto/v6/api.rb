@@ -1,7 +1,7 @@
-require "palo-alto/v6/device-api"
-require "palo-alto/v6/virtual-system-api"
-require "palo-alto/v6/address-api"
-require "palo-alto/v6/address-group-api"
+require "palo_alto/v6/device_api"
+require "palo_alto/v6/virtual_system_api"
+require "palo_alto/v6/address_api"
+require "palo_alto/v6/address_group_api"
 
 module PaloAlto
   module V6

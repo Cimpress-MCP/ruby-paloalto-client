@@ -1,5 +1,5 @@
-require "palo-alto/models/address-group"
-require "palo-alto/models/address"
+require "palo_alto/models/address_group"
+require "palo_alto/models/address"
 
 module PaloAlto
   module V6

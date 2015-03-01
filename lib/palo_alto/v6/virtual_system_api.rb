@@ -1,7 +1,7 @@
-require "palo-alto/models/virtual-system"
-require "palo-alto/models/address"
-require "palo-alto/models/address-group"
-require "palo-alto/models/rulebase"
+require "palo_alto/models/virtual_system"
+require "palo_alto/models/address"
+require "palo_alto/models/address_group"
+require "palo_alto/models/rulebase"
 
 module PaloAlto
   module V6

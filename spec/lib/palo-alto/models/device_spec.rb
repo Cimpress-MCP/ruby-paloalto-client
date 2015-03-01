@@ -1,4 +1,4 @@
-require "palo-alto/models/device"
+require "palo_alto/models/device"
 
 describe "PaloAlto::Models::Device" do
   let(:name)            { "test-device" }

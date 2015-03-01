@@ -1,5 +1,5 @@
-require "palo-alto/v6/address-api"
-require "palo-alto/helpers/rest"
+require "palo_alto/v6/address_api"
+require "palo_alto/helpers/rest"
 
 describe "PaloAlto::V6::AddressApi" do
   # dummy class to demonstrate functionality

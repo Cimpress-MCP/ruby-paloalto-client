@@ -1,5 +1,5 @@
-require "palo-alto/common/base-api"
-require "palo-alto/helpers/rest"
+require "palo_alto/common/base_api"
+require "palo_alto/helpers/rest"
 
 describe "PaloAlto::Common::BaseApi" do
   let(:host)          { "some.host" }

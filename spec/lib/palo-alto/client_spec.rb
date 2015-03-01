@@ -1,4 +1,4 @@
-require "palo-alto/client"
+require "palo_alto/client"
 
 describe "PaloAlto::Client" do
   let(:host)        { "some.host" }

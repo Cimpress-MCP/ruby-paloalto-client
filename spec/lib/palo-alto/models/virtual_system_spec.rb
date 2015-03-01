@@ -1,4 +1,4 @@
-require "palo-alto/models/virtual-system"
+require "palo_alto/models/virtual_system"
 
 describe "PaloAlto::Models::VirtualSystem" do
   let(:name)           { "vsys-1" }

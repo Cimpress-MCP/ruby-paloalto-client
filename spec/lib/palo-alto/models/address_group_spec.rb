@@ -1,4 +1,4 @@
-require "palo-alto/models/address-group"
+require "palo_alto/models/address_group"
 
 describe "PaloAlto::Models::AddressGroup" do
   let(:name)        { "test-address-group" }

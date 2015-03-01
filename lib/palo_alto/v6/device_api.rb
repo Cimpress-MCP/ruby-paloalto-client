@@ -1,5 +1,5 @@
-require "palo-alto/models/device"
-require "palo-alto/models/virtual-system"
+require "palo_alto/models/device"
+require "palo_alto/models/virtual_system"
 
 module PaloAlto
   module V6

@@ -1,5 +1,5 @@
-require "palo-alto/helpers/rest"
-require "rest-client"
+require "palo_alto/helpers/rest"
+require "rest_client"
 
 describe "PaloAlto::Helpers::Rest" do
   let(:url)            { "http://localhost.localdomain:443/api/" }

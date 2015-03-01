@@ -1,5 +1,5 @@
-require "palo-alto/v6/virtual-system-api"
-require "palo-alto/helpers/rest"
+require "palo_alto/v6/virtual_system_api"
+require "palo_alto/helpers/rest"
 require "nokogiri"
 
 describe "PaloAlto::V6::VirtualSystemApi" do
