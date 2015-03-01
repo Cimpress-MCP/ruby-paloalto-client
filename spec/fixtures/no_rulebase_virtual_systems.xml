@@ -1,0 +1,24 @@
+<response status="success" code="19">
+  <result total-count="1" count="1">
+    <vsys src="tpl" admin="admin" time="2015/03/05 10:22:56">
+      <entry name="vsys1" src="tpl" admin="admin" time="2015/03/05 10:22:56">
+        <address admin="admin" time="2015/03/05 10:22:56">
+          <entry name="address-1" admin="admin" time="2015/03/04 13:39:03">
+            <ip-netmask admin="admin" time="2015/03/04 13:39:02">1.1.1.1</ip-netmask>
+          </entry>
+          <entry name="address-2" admin="admin" time="2015/03/05 10:22:56">
+            <ip-netmask admin="admin" time="2015/03/05 10:22:56">2.2.2.2</ip-netmask>
+          </entry>
+        </address>
+        <address-group admin="admin" time="2015/03/04 13:45:08">
+          <entry name="test" admin="admin" time="2015/03/04 13:45:08">
+            <static admin="admin" time="2015/03/04 13:45:08">
+              <member admin="admin" time="2015/03/04 13:45:08">address-group-1</member>
+            </static>
+            <description>Testing using API</description>
+          </entry>
+        </address-group>
+      </entry>
+    </vsys>
+  </result>
+</response>

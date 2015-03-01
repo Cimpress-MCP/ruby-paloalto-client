@@ -1,4 +1,4 @@
-<response status="success">
+<response status="success" code="19">
   <result total-count="0" count="0">
   </result>
 </response>
