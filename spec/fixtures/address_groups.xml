@@ -1,12 +1,14 @@
 <response status="success" code="19">
   <result total-count="1" count="1">
-    <address-group admin="someone" time="2015/03/04 13:45:08">
-      <entry name="test" admin="someone" time="2015/03/04 13:45:08">
-        <static admin="someone" time="2015/03/04 13:45:08">
-          <member admin="someone" time="2015/03/04 13:45:08">10.10.111.225-1</member>
-        </static>
-        <description>Testing using API</description>
-      </entry>
-    </address-group>
+    <entry name="test" src="tpl" admin="admin" time="2015/02/02 13:45:00">
+      <address-group admin="someone" time="2015/03/04 13:45:08">
+        <entry name="test" admin="someone" time="2015/03/04 13:45:08">
+          <static admin="someone" time="2015/03/04 13:45:08">
+            <member admin="someone" time="2015/03/04 13:45:08">10.10.111.225-1</member>
+          </static>
+          <description>Testing using API</description>
+        </entry>
+      </address-group>
+    </entry>
   </result>
 </response>
