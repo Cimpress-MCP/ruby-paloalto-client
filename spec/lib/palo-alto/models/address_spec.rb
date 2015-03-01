@@ -5,8 +5,7 @@ describe "PaloAlto::Models::Address" do
   let(:ip)   { "2.2.2.2" }
 
   before do
-    @address = PaloAlto::Models::Address.new(name: name,
-                                             ip:   ip)
+    @address = PaloAlto::Models::Address.new(name: name, ip: ip)
   end
 
   it "has a name attribute" do

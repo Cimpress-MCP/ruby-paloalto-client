@@ -40,7 +40,7 @@ module PaloAlto
             # get all address members for the address group
             address_group_entry.xpath('*').each do |address_entry|
               if (specific_address = address_entry.xpath('member')).length > 0
-                address_group.addresses << PaloAlto::Models::Address.new(name: "", ip: specific_address[0].content)
+                address_group.addresses << PaloAlto::Models::Address.new(name: specific_address[0].content, ip: "")
               end
             end
 
