@@ -8,7 +8,8 @@ module PaloAlto
       # == Attributes
       #
       # * +name+        - Name of the address group
-      # * +description* - Description for the address group
+      # * +description+ - Description for the address group
+      # * +addresses+   - Array containing Model::Address instances
       #
       # == Example
       #
