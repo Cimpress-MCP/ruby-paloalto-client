@@ -1,0 +1,12 @@
+<response status="success">
+  <result>
+    <address>
+      <entry name="test-1">
+        <ip-netmask>192.168.80.0/24</ip-netmask>
+      </entry>
+      <entry name="test-2">
+        <ip-netmask>10.10.111.225</ip-netmask>
+      </entry>
+    </address>
+  </result>
+</response>
