@@ -1,7 +1,7 @@
-require "palo-alto/base-api"
+require "palo-alto/common/base-api"
 require "palo-alto/helpers/rest"
 
-describe "PaloAlto::BaseApi" do
+describe "PaloAlto::Common::BaseApi" do
   let(:host)          { "some.host" }
   let(:port)          { "443" }
   let(:ssl)           { false }
@@ -20,11 +20,11 @@ describe "PaloAlto::BaseApi" do
     FakeWeb.clean_registry
     FakeWeb.register_uri(:post, url, :status => [ 200 ], :body => auth_response)
 
-    @api = PaloAlto::BaseApi.new(host:     host,
-                                 port:     port,
-                                 ssl:      ssl,
-                                 username: username,
-                                 password: password)
+    @api = PaloAlto::Common::BaseApi.new(host:     host,
+                                         port:     port,
+                                         ssl:      ssl,
+                                         username: username,
+                                         password: password)
   end
 
   it "has a host attribute" do
@@ -53,7 +53,7 @@ describe "PaloAlto::BaseApi" do
 
   describe ".initialize" do
     it "returns a PaloAlto::V6::Api instance" do
-      expect(@api).to be_instance_of(PaloAlto::BaseApi)
+      expect(@api).to be_instance_of(PaloAlto::Common::BaseApi)
     end
 
     it "assigns host" do
@@ -87,11 +87,11 @@ describe "PaloAlto::BaseApi" do
       end
 
       it "throws and exception" do
-        expect{ PaloAlto::BaseApi.new(host:     host,
-                                      port:     port,
-                                      ssl:      ssl,
-                                      username: username,
-                                      password: password) }.to raise_exception
+        expect{ PaloAlto::Common::BaseApi.new(host:     host,
+                                              port:     port,
+                                              ssl:      ssl,
+                                              username: username,
+                                              password: password) }.to raise_exception
       end
     end
   end

@@ -1,6 +1,6 @@
 module PaloAlto
   module V6
-    class Api < BaseApi
+    class Api < Common::BaseApi
     end
   end
 end
