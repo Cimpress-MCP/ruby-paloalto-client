@@ -49,7 +49,7 @@ pa_client = PaloAlto::Client.new host:        "localhost",
                                  ssl:         true,
                                  api_version: "6"
 
-=> 
+=> #<PaloAlto::V6::Api:0x000000026d7340 @host="localhost", @port="443", @ssl=true, @username="admin", @password="adminpass", @auth_key="LUFRPT0va1dzTWZCWjhReWkx354gsUJ0T1VyeFBVRlE9cVpGWUEzNmFmeWtTQU1GcmNHVE0zeHdWRHJKUlhJYXBUMWlXdFBLVnhqND0=">
 ```
 
 Once you have your client "pa_client", you can continue to retrieve and manipulate data within the PaloAlto target device.
@@ -61,25 +61,19 @@ To obtain a list of all addresses, perform the following:
 ```bash
 pa_client.addresses
 
-=> 
+=> [#<PaloAlto::Models::Address:0x0000000268f158 @name="pool-range", @ip="192.168.80.0/24">, #<PaloAlto::Models::Address:0x0000000268e528 @name="some-ip", @ip="2.2.2.2">]
 ```
 
 ### Address Groups
 
-To obtain a list of all address groups, perform the following:
+To obtain a list of all address groups, perform the following (note that address groups contain addresses):
 
 ```bash
 pa_client.address_groups
 
-=> 
-```
+=> [#<PaloAlto::Models::AddressGroup:0x00000002661870 @name="test", @description="Testing using API", @addresses=[#<PaloAlto::Models::Address:0x00000002660f88 @name="", @ip="2.2.2.2">]>]
 
-### Policies
+pa_client.address_groups[0].addresses
 
-To obtain a list of all policies, perform the following:
-
-```bash
-pa_client.policies
-
-=> 
+=> [#<PaloAlto::Models::Address:0x000000033ea708 @name="some-ip", @ip="">]
 ```
