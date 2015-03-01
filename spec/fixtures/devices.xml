@@ -1,0 +1,13 @@
+<response status="success">
+  <result total-count="1" count="1">
+    <devices src="tpl" admin="admin" time="2015/03/05 10:22:56">
+      <entry name="localhost.localdomain" src="tpl" admin="admin" time="2015/03/05 10:22:56">
+        <deviceconfig>
+          <system>
+            <ip-address>2.2.2.2</ip-address>
+          </system>
+        </deviceconfig>
+      </entry>
+    </devices>
+  </result>
+</response>

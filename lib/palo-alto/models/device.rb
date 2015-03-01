@@ -7,7 +7,7 @@ module PaloAlto
       #
       # == Attributes
       #
-      # * +name+ - Name of the address group
+      # * +name+ - Name of the device
       # * +ip+   - Device IP address
       #
       # == Example
