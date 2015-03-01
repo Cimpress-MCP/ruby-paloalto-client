@@ -1,5 +1,8 @@
 require "palo-alto/v6/address-group-api"
 require "palo-alto/helpers/rest"
+require "palo-alto/models/address"
+require "palo-alto/models/address-group"
+require "nokogiri"
 
 describe "PaloAlto::V6::AddressGroupApi" do
   # dummy class to demonstrate functionality
@@ -21,16 +24,33 @@ describe "PaloAlto::V6::AddressGroupApi" do
     let(:no_member_address_group_xml) { File.open(fixture_file("no_members_address_groups.xml")).read }
 
     describe "when address groups exist" do
-      before do
-        expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(address_group_xml)
-      end
-
-      before do
-        @address_groups = DummyClass.address_groups
-      end
-
       it "parses the XML response into the required format" do
+        expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(address_group_xml)
+        @address_groups = DummyClass.address_groups
+
         expect(@address_groups).to be_instance_of(Array)
+      end
+
+      describe "for groups that contain members" do
+        before do
+          expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(address_group_xml)
+          @address_groups = DummyClass.address_groups
+        end
+
+        it "returns a list of addresses" do
+          expect(@address_groups[0].addresses).to_not be_empty
+        end
+      end
+
+      describe "for groups that have no members" do
+        before do
+          expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(no_member_address_group_xml)
+          @address_groups = DummyClass.address_groups
+        end
+
+        it "returns an empty array" do
+          expect(@address_groups[0].addresses).to be_empty
+        end
       end
     end
 

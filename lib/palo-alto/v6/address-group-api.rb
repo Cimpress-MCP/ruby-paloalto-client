@@ -1,3 +1,6 @@
+require "palo-alto/models/address-group"
+require "palo-alto/models/address"
+
 module PaloAlto
   module V6
     module AddressGroupApi
@@ -33,7 +36,14 @@ module PaloAlto
           data.xpath('//response/result/address-group/entry').each do |address_group_entry|
             address_group = PaloAlto::Models::AddressGroup.new(name:        address_group_entry.xpath('@name').to_s,
                                                                description: address_group_entry.xpath('description').first.content)
-            # TODO: Add all members (addresses) to the group
+
+            # get all address members for the address group
+            address_group_entry.xpath('*').each do |address_entry|
+              if (specific_address = address_entry.xpath('member')).length > 0
+                address_group.addresses << PaloAlto::Models::Address.new(name: "", ip: specific_address[0].content)
+              end
+            end
+
             address_group_list << address_group
           end
         else
