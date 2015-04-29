@@ -8,12 +8,12 @@ describe "PaloAlto::Models::LogEntry" do
 
   describe ".initialize" do
     it "returns a PaloAlto::Models::LogEntry instance" do
-      @log = PaloAlto::Models::LogEntry.new(id: '129047', :serial => '001606017466', :seqno => '3926388', :type => 'TRAFFIC')
+      @log = PaloAlto::Models::LogEntry.new(log_id: '129047', :serial => '001606017466', :seqno => '3926388', :type => 'TRAFFIC')
       expect(@log).to be_instance_of(PaloAlto::Models::LogEntry)
     end
 
     it "initializes setters and getters for the specified log type" do
-      @log = PaloAlto::Models::LogEntry.new(id: '129047', :serial => '001606017466', :seqno => '3926388', :type => 'TRAFFIC', addl_attrs: [ 'attr1', 'attr2' ])
+      @log = PaloAlto::Models::LogEntry.new(log_id: '129047', :serial => '001606017466', :seqno => '3926388', :type => 'TRAFFIC', addl_attrs: [ 'attr1', 'attr2' ])
 
       expect(@log).to respond_to(:attr1)
       expect(@log).to respond_to(:attr2)

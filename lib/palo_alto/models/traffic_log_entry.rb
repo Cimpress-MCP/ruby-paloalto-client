@@ -14,17 +14,17 @@ module PaloAlto
       #
       # == Attributes
       #
-      # * +id+     - ID of the log
+      # * +log_id+ - Unique ID of the log
       # * +serial+ - Serial number of the log
       # * +seqno+  - Sequence number of the log
       #
       # == Example
       #
-      #  PaloAlto::Models::TrafficLogEntry.new id:     '23954702',
+      #  PaloAlto::Models::TrafficLogEntry.new log_id: '23954702',
       #                                        serial: '9390235701',
       #                                        seqno:  '2'
-      def initialize(id:, serial:, seqno:)
-        super(id: id, serial: serial, seqno: seqno, type: 'TRAFFIC')
+      def initialize(log_id:, serial:, seqno:)
+        super(log_id: log_id, serial: serial, seqno: seqno, type: 'TRAFFIC')
 
         self
       end

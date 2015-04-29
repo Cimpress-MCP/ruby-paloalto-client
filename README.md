@@ -158,8 +158,12 @@ triggering a job on the PaloAlto device to generate the logs, and then fetching 
 job has been completed. If the log job has not yet completed, an Exception is raised indicating that the Job
 has not yet completed and the logs are not yet available.
 
+#### Traffic Logs
+
+To capture traffic logs from the PaloAlto device, perform the following:
+
 ```bash
-# create log generation job for traffic logs and capture the job_id
+# create log generation job and capture the job_id
 log_job_id = pa_client.generate_logs(log_type: "traffic")
 
 # query for the logs - job has not yet completed, Exception is raised

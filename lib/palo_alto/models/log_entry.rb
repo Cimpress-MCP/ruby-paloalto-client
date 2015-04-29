@@ -1,7 +1,7 @@
 module PaloAlto
   module Models
     class LogEntry
-      attr_accessor :id, :serial, :seqno, :type
+      attr_accessor :log_id, :serial, :seqno, :type
 
       SUPPORTED_TYPES = [ "traffic" ]
 
@@ -9,6 +9,7 @@ module PaloAlto
       #
       # == Attributes
       #
+      # * +log_id+    - Unique ID of the log
       # * +serial+    - Serial number of the log
       # * +seqno+     - Sequence number of the log
       # * +type+      - Type of log
@@ -19,8 +20,8 @@ module PaloAlto
       #  PaloAlto::Models::LogEntry.new serial: '9390235701',
       #                                 seqno:  '2',
       #                                 type:   'TRAFFIC'
-      def initialize(id:, serial:, seqno:, type:, addl_attrs: [])
-        self.id     = id
+      def initialize(log_id:, serial:, seqno:, type:, addl_attrs: [])
+        self.log_id = log_id
         self.serial = serial
         self.seqno  = seqno
         self.type   = type
@@ -53,29 +54,29 @@ module PaloAlto
           # construct the log instance based on supported known log types
           begin
             # get the minimum required attributes for creating any log type
-            id              = xml_data.xpath('@logid')[0].content
+            log_id          = xml_data.xpath('@logid')[0].content
             serial_number   = xml_data.xpath('.//serial')[0].content
             sequence_number = xml_data.xpath('.//seqno')[0].content
 
             case log_type_string.downcase
             when "traffic"
-              log_instance = PaloAlto::Models::TrafficLogEntry.new(id: id, serial: serial_number, seqno: sequence_number)
+              log_instance = PaloAlto::Models::TrafficLogEntry.new(log_id: log_id, serial: serial_number, seqno: sequence_number)
             else
               raise "Log type '#{log_type_string}' is unsupported at this time"
             end
           rescue Exception => e
-            raise "Could not find a required attribute for the specified log type"
+            raise "Could not find a required attribute for the specified log type: #{e.message}"
           end
 
           begin
             # normalize the attributes and dynamically assign them based on the XML data
             xml_data.xpath('.//*').each do |attr|
-              unless [ "id", "serial", "seqno", "type" ].include?(attr.name)
+              unless [ "log_id", "serial", "seqno", "type" ].include?(attr.name)
                 log_instance.send("#{attr.name.gsub('-', '_')}=", attr.content)
               end
             end
           rescue Exception => e
-            raise "Unsupported attribute type"
+            raise "Unsupported attribute type: #{e.message}"
           end
         end
 

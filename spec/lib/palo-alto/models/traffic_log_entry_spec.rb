@@ -3,7 +3,7 @@ require "palo_alto/models/traffic_log_entry"
 
 describe "PaloAlto::Models::TrafficLogEntry" do
   before do
-    @traffic_log = PaloAlto::Models::TrafficLogEntry.new(id: '129504701', serial: '001606017466', seqno: '3926388')
+    @traffic_log = PaloAlto::Models::TrafficLogEntry.new(log_id: '129504701', serial: '001606017466', seqno: '3926388')
   end
 
   describe ".initialize" do
