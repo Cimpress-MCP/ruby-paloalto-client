@@ -176,3 +176,17 @@ pa_client.get_logs(job_id: log_job_id)
 
 => [#<PaloAlto::Models::TrafficLogEntry:0x0000000295ec30 @id="6143315061768195499", @serial="001606017466", @seqno="3936876", @type="TRAFFIC", @domain="1", @receive_time="2015/04/30 08:44:51", @actionflags="0x0", @subtype="end", @config_ver="1", @time_generated="2015/04/30 08:44:51", @src="192.168.5.156", @dst="192.168.4.3", @rule="allow global-protect-ssl", @srcloc="CN", @dstloc="US", @app="insufficient-data", @vsys="vsys1", @from="outside", @to="outside", @inbound_if="ethernet1/3", @outbound_if="ethernet1/3", @time_received="2015/04/30 08:44:51", @sessionid="3396", @repeatcnt="1", @sport="60000", @dport="5632", @natsport="0", @natdport="0", @flags="0", @flag_pcap="no", @flag_flagged="no", @flag_proxy="no", @flag_url_denied="no", @flag_nat="no", @captive_portal="no", @exported="no", @transaction="no", @pbf_c2s="no", @pbf_s2c="no", @temporary_match="no", @sym_return="no", @decrypt_mirror="no", @proto="udp", @action="allow", @cpadding="0", @bytes="60", @bytes_sent="60", @bytes_received="0", @packets="1", @start="2015/04/30 08:43:51", @elapsed="0", @category="any", @padding="0", @pkts_sent="1", @pkts_received="0">]
 ```
+
+#### System Logs
+
+To capture system logs from the PaloAlto device, perform the following:
+
+```bash
+# create log generation job and capture the job_id
+log_job_id = pa_client.generate_logs(log_type: "system")
+
+# query for the logs - job has completed, log array is returned
+pa_client.get_logs(job_id: log_job_id)
+
+=> [#<PaloAlto::Models::SystemLogEntry:0x000000020535c8 @log_id="6143315061768192081", @serial="001606017466", @seqno="122200", @type="SYSTEM", @domain="1", @receive_time="2015/04/30 09:16:23", @actionflags="0x0", @subtype="general", @config_ver="0", @time_generated="2015/04/30 09:16:23", @eventid="general", @fmt="0", @id="0", @module="general", @severity="informational", @opaque="User jkarimi logged out via Web from 10.0.0.4">, #<PaloAlto::Models::SystemLogEntry:0x0000000204ae28 @log_id="6143315061768192080", @serial="001606017466", @seqno="122199", @type="SYSTEM", @domain="1", @receive_time="2015/04/30 09:16:23", @actionflags="0x0", @subtype="general", @config_ver="0", @time_generated="2015/04/30 09:16:23", @eventid="general", @fmt="0", @id="0", @module="general", @severity="informational", @opaque="User jkarimi logged in via Web from 10.0.0.4 using https">, #<PaloAlto::Models::SystemLogEntry:0x00000002042840 @log_id="6143315061768192079", @serial="001606017466", @seqno="122198", @type="SYSTEM", @domain="1", @receive_time="2015/04/30 09:16:23", @actionflags="0x0", @subtype="general", @config_ver="0", @time_generated="2015/04/30 09:16:23", @eventid="auth-success", @fmt="0", @id="0", @module="general", @severity="informational", @opaque="User 'jkarimi' authenticated. Profile Active Directory via ACS in an authentication sequence Radius-then-Local succeeded.  From: 10.0.0.4.">]
+```

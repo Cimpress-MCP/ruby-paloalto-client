@@ -61,6 +61,16 @@ describe "PaloAlto::Models::LogEntry" do
           expect(PaloAlto::Models::LogEntry.from_xml(xml_data: traffic_log_xml)).to be_instance_of(PaloAlto::Models::TrafficLogEntry)
         end
       end
+
+      describe "for system logs" do
+        let(:system_log_xmlfile)  { File.open(fixture_file("system_logs.xml")).read }
+        let(:system_log_nokogiri) { Nokogiri::XML(system_log_xmlfile) }
+        let(:system_log_xml)      { system_log_nokogiri.xpath('//response/result/log/logs/*')[0] }
+
+        it "returns a PaloAlto::Models::SystemLogEntry instance" do
+          expect(PaloAlto::Models::LogEntry.from_xml(xml_data: system_log_xml)).to be_instance_of(PaloAlto::Models::SystemLogEntry)
+        end
+      end
     end
   end
 end

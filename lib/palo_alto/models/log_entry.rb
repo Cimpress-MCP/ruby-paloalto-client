@@ -3,7 +3,7 @@ module PaloAlto
     class LogEntry
       attr_accessor :log_id, :serial, :seqno, :type
 
-      SUPPORTED_TYPES = [ "traffic" ]
+      SUPPORTED_TYPES = [ "traffic", "system" ]
 
       # Create and returns a new PaloAlto::Models::LogEntry instance with the given parameters
       #
@@ -61,6 +61,8 @@ module PaloAlto
             case log_type_string.downcase
             when "traffic"
               log_instance = PaloAlto::Models::TrafficLogEntry.new(log_id: log_id, serial: serial_number, seqno: sequence_number)
+            when "system"
+              log_instance = PaloAlto::Models::SystemLogEntry.new(log_id: log_id, serial: serial_number, seqno: sequence_number)
             else
               raise "Log type '#{log_type_string}' is unsupported at this time"
             end
@@ -88,3 +90,4 @@ end
 
 # load required libraries - required after definition to avoid potential circular dependencies
 require "palo_alto/models/traffic_log_entry"
+require "palo_alto/models/system_log_entry"

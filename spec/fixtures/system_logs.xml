@@ -1,0 +1,61 @@
+<response status="success">
+  <result>
+    <job>
+      <tenq>08:58:58</tenq>
+      <tdeq>08:58:58</tdeq>
+      <tlast>08:58:59</tlast>
+      <status>FIN</status>
+      <id>2049</id>
+    </job>
+    <log>
+      <logs count="2" progress="100">
+        <entry logid="6143315061768192077">
+          <domain>1</domain>
+          <receive_time>2015/04/30 08:58:58</receive_time>
+          <serial>001606017466</serial>
+          <seqno>122196</seqno>
+          <actionflags>0x0</actionflags>
+          <type>SYSTEM</type>
+          <subtype>general</subtype>
+          <config_ver>0</config_ver>
+          <time_generated>2015/04/30 08:58:58</time_generated>
+          <eventid>general</eventid>
+          <fmt>0</fmt>
+          <id>0</id>
+          <module>general</module>
+          <severity>informational</severity>
+          <opaque>User jkarimi logged out via Web from 10.0.0.5</opaque>
+        </entry>
+        <entry logid="6143315061768192076">
+          <domain>1</domain>
+          <receive_time>2015/04/30 08:58:57</receive_time>
+          <serial>001606017466</serial>
+          <seqno>122195</seqno>
+          <actionflags>0x0</actionflags>
+          <type>SYSTEM</type>
+          <subtype>general</subtype>
+          <config_ver>0</config_ver>
+          <time_generated>2015/04/30 08:58:57</time_generated>
+          <eventid>general</eventid>
+          <fmt>0</fmt>
+          <id>0</id>
+          <module>general</module>
+          <severity>informational</severity>
+          <opaque>User jkarimi logged in via Web from 10.0.0.5 using https</opaque>
+        </entry>
+      </logs>
+    </log>
+    <meta>
+      <devices>
+        <entry name="localhost.localdomain">
+          <hostname>localhost.localdomain</hostname>
+          <vsys>
+            <entry name="vsys1">
+              <display-name>vsys1</display-name>
+            </entry>
+          </vsys>
+        </entry>
+      </devices>
+    </meta>
+  </result>
+</response>
