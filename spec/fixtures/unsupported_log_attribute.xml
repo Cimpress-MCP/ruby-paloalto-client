@@ -1,0 +1,33 @@
+<response status="success">
+  <result>
+    <job>
+      <tenq>12:18:28</tenq>
+      <tdeq>12:18:28</tdeq>
+      <tlast>12:18:29</tlast>
+      <status>FIN</status>
+      <id>2023</id>
+    </job>
+    <log>
+      <logs count="20" progress="100">
+        <entry logid="6142943976593823251">
+          <bogus>1</bogus>
+          <serial>001606017466</serial>
+          <seqno>3926388</seqno>
+          <type>TRAFFIC</type>
+        </entry>
+      </logs>
+    </log>
+    <meta>
+      <devices>
+        <entry name="localhost.localdomain">
+          <hostname>localhost.localdomain</hostname>
+          <vsys>
+            <entry name="vsys1">
+              <display-name>vsys1</display-name>
+            </entry>
+          </vsys>
+        </entry>
+      </devices>
+    </meta>
+  </result>
+</response>

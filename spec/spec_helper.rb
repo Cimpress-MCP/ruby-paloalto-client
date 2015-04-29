@@ -1,5 +1,6 @@
 require "fakeweb"
 require "simplecov"
+require "nokogiri"
 
 SimpleCov.start do
   add_filter "/spec"
