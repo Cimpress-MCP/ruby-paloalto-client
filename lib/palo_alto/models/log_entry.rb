@@ -53,7 +53,7 @@ module PaloAlto
           # construct the log instance based on supported known log types
           begin
             # get the minimum required attributes for creating any log type
-            id              = xml_data.xpath('@logid')
+            id              = xml_data.xpath('@logid')[0].content
             serial_number   = xml_data.xpath('.//serial')[0].content
             sequence_number = xml_data.xpath('.//seqno')[0].content
 
@@ -70,7 +70,7 @@ module PaloAlto
           begin
             # normalize the attributes and dynamically assign them based on the XML data
             xml_data.xpath('.//*').each do |attr|
-              unless [ "serial", "seqno", "type" ].include?(attr.name)
+              unless [ "id", "serial", "seqno", "type" ].include?(attr.name)
                 log_instance.send("#{attr.name.gsub('-', '_')}=", attr.content)
               end
             end
