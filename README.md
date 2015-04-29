@@ -150,3 +150,25 @@ address_groups = pa_client.address_groups
 
 address_group = address_groups[0]
 ```
+
+### Logs
+
+The logs interface allows capturing logs from the PaloAlto device. This process is an asynchronous task and requires
+triggering a job on the PaloAlto device to generate the logs, and then fetching the logs from the device when the
+job has been completed. If the log job has not yet completed, an Exception is raised indicating that the Job
+has not yet completed and the logs are not yet available.
+
+```bash
+# create log generation job for traffic logs and capture the job_id
+log_job_id = pa_client.generate_logs(log_type: "traffic")
+
+# query for the logs - job has not yet completed, Exception is raised
+pa_client.get_logs(job_id: log_job_id)
+
+=> Exception: "Log job with ID '12345' is still in progress"
+
+# query for the logs - job has completed, log array is returned
+pa_client.get_logs(job_id: log_job_id)
+
+=> [#<PaloAlto::Models::TrafficLogEntry:0x0000000295ec30 @id="6143315061768195499", @serial="001606017466", @seqno="3936876", @type="TRAFFIC", @domain="1", @receive_time="2015/04/30 08:44:51", @actionflags="0x0", @subtype="end", @config_ver="1", @time_generated="2015/04/30 08:44:51", @src="192.168.5.156", @dst="192.168.4.3", @rule="allow global-protect-ssl", @srcloc="CN", @dstloc="US", @app="insufficient-data", @vsys="vsys1", @from="outside", @to="outside", @inbound_if="ethernet1/3", @outbound_if="ethernet1/3", @time_received="2015/04/30 08:44:51", @sessionid="3396", @repeatcnt="1", @sport="60000", @dport="5632", @natsport="0", @natdport="0", @flags="0", @flag_pcap="no", @flag_flagged="no", @flag_proxy="no", @flag_url_denied="no", @flag_nat="no", @captive_portal="no", @exported="no", @transaction="no", @pbf_c2s="no", @pbf_s2c="no", @temporary_match="no", @sym_return="no", @decrypt_mirror="no", @proto="udp", @action="allow", @cpadding="0", @bytes="60", @bytes_sent="60", @bytes_received="0", @packets="1", @start="2015/04/30 08:43:51", @elapsed="0", @category="any", @padding="0", @pkts_sent="1", @pkts_received="0">]
+```
