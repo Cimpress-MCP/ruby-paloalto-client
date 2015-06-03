@@ -24,6 +24,16 @@ describe "PaloAlto::V6::LogApi" do
       end
     end
 
+    describe "for invalid number of logs specified" do
+      it "raises an exception when number of logs is less than minimum" do
+        expect{ DummyClass.generate_logs(log_type: "traffic", num_logs: -1000) }.to raise_exception
+      end
+
+      it "raises an exception when number of logs is greater than maximum" do
+        expect{ DummyClass.generate_logs(log_type: "traffic", num_logs: 99999) }.to raise_exception
+      end
+    end
+
     describe "when the job is kicked off successfully" do
       before do
         expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(log_success_xml)

@@ -3,11 +3,15 @@ require "palo_alto/models/log_entry"
 module PaloAlto
   module V6
     module LogApi
+      MIN_LOG_REQUEST = 20
+      MAX_LOG_REQUEST = 2000
+
       # Kicks off a job to generate logs asynchronously
       #
       # == Parameters
       #
       #  * +log_type+ - Type of log to generate
+      #  * +num_logs+ - Number of log entries to query for (check MIN/MAX range for specifics)
       #
       # == Returns
       #
@@ -17,8 +21,9 @@ module PaloAlto
       #
       #  * +Exception+ - Raises an exception if the request is unsuccessful or an
       #                  invalid log_type parameter is passed
-      def generate_logs(log_type:)
+      def generate_logs(log_type:, num_logs: MIN_LOG_REQUEST)
         raise "Invalid log_type - must be one of #{PaloAlto::Models::LogEntry::SUPPORTED_TYPES}" unless PaloAlto::Models::LogEntry::SUPPORTED_TYPES.include?(log_type)
+        raise "num_logs must be within range (#{MIN_LOG_REQUEST}..#{MAX_LOG_REQUEST})" unless (MIN_LOG_REQUEST..MAX_LOG_REQUEST) === num_logs
 
         log_job_id = ''
 
@@ -28,7 +33,8 @@ module PaloAlto
         options[:method]  = :post
         options[:payload] = { :type       => "log",
                               :'log-type' => log_type,
-                              :key        => self.auth_key }
+                              :key        => self.auth_key,
+                              :nlogs      => num_logs.to_s }
 
         html_result = Helpers::Rest.make_request(options)
 
