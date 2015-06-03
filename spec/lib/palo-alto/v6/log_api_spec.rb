@@ -57,6 +57,44 @@ describe "PaloAlto::V6::LogApi" do
     end
   end
 
+  describe ".log_job_complete?" do
+    let(:job_id)              { "2015" }
+    let(:log_in_progress_xml) { File.open(fixture_file("log_in_progress.xml")).read }
+    let(:log_complete_xml)    { File.open(fixture_file("log_complete.xml")).read }
+
+    describe "when a job is still in progress" do
+      before do
+        expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(log_in_progress_xml)
+      end
+
+      it "returns false" do
+        expect(DummyClass.log_job_complete?(job_id: job_id)).to eq(false)
+      end
+    end
+
+    describe "when a job has completed" do
+      before do
+        expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(log_complete_xml)
+      end
+
+      it "returns true" do
+        expect(DummyClass.log_job_complete?(job_id: job_id)).to eq(true)
+      end
+    end
+
+    describe "when errors occur" do
+      it "raises an exception if an error occurred obtaining XML" do
+        expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_raise(Exception)
+        expect{ DummyClass.log_job_complete?(job_id: job_id) }.to raise_exception
+      end
+
+      it "raises an exception if an error occurred obtaining XML" do
+        expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_raise(Exception)
+        expect{ DummyClass.log_job_complete?(job_id: job_id) }.to raise_exception
+      end
+    end
+  end
+
   describe ".get_logs" do
     let(:job_id)          { "2014" }
     let(:log_xml)         { File.open(fixture_file("traffic_logs.xml")).read }

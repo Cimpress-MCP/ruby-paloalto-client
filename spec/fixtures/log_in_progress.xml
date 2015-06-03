@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<response status="success">
+  <result>
+  <job>
+    <tenq>15:22:46</tenq>
+    <tdeq>15:22:46</tdeq>
+    <tlast>19:00:00</tlast>
+    <status>ACT</status>
+    <id>2015</id>
+  </job>
+  <log>
+    <logs count="0" progress="0">
+    </logs>
+  </log>
+  <meta>
+    <devices>
+      <entry name="localhost.localdomain">
+        <hostname>localhost.localdomain</hostname>
+        <vsys>
+          <entry name="vsys1">
+            <display-name>vsys1</display-name>
+          </entry>
+        </vsys>
+      </entry>
+    </devices>
+  </meta>
+</result>
+</response>

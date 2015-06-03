@@ -53,6 +53,50 @@ module PaloAlto
         log_job_id
       end
 
+      # Gets the status of a log job based on the Job ID
+      #
+      # == Parameters
+      #
+      # * +job_id+ - ID of the job that is generating the logs
+      #
+      # == Returns
+      #
+      # * +Boolean+ - True if job is complete, false if job is still processing
+      #
+      # == Raises
+      #
+      # * +Exception+ - Raises an exception if the request is unsuccessful
+      def log_job_complete?(job_id:)
+        status = false
+
+        # configure options for the request
+        options = {}
+        options[:url]     = self.endpoint
+        options[:method]  = :post
+        options[:payload] = { :type     => "log",
+                              :action   => "get",
+                              :"job-id" => job_id,
+                              :key      => self.auth_key }
+
+        html_result = Helpers::Rest.make_request(options)
+
+        raise "Error obtaining log job XML" if html_result.nil?
+
+        # parse the XML data
+        data          = Nokogiri::XML(html_result)
+        response_code = data.xpath('//response/@status').to_s
+
+        if response_code == "success"
+          # check if the job is finished
+          job_response_code = data.xpath('//response/result/job/status')[0].content.to_s
+          status = true if job_response_code == "FIN"
+        else
+          raise "Error in response XML: #{data.inspect}"
+        end
+
+        status
+      end
+
       # Gets a set of logs based on the Job ID
       #
       # == Parameters

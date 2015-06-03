@@ -1,0 +1,81 @@
+<response status="success"><result>
+  <job>
+    <tenq>15:00:31</tenq>
+    <tdeq>15:00:31</tdeq>
+    <tlast>15:00:32</tlast>
+    <status>FIN</status>
+    <id>2015</id>
+  </job>
+  <log>
+    <logs count="1" progress="100">
+      <entry logid="6155931957696928918">
+        <domain>1</domain>
+        <receive_time>2015/06/03 15:00:13</receive_time>
+        <serial>001606017466</serial>
+        <seqno>4086925</seqno>
+        <actionflags>0x0</actionflags>
+        <type>TRAFFIC</type>
+        <subtype>end</subtype>
+        <config_ver>1</config_ver>
+        <time_generated>2015/06/03 15:00:13</time_generated>
+        <src>192.168.80.50</src>
+        <dst>192.168.80.51</dst>
+        <rule>temp allow ping</rule>
+        <srcloc>10.0.0.0-10.255.255.255</srcloc>
+        <dstloc>192.168.0.0-192.168.255.255</dstloc>
+        <app>insufficient-data</app>
+        <vsys>vsys1</vsys>
+        <from>inside</from>
+        <to>outside</to>
+        <inbound_if>ethernet1/2</inbound_if>
+        <outbound_if>ethernet1/3</outbound_if>
+        <time_received>2015/06/03 15:00:13</time_received>
+        <sessionid>22301</sessionid>
+        <repeatcnt>1</repeatcnt>
+        <sport>388</sport>
+        <dport>546</dport>
+        <natsport>0</natsport>
+        <natdport>0</natdport>
+        <flags>0</flags>
+        <flag-pcap>no</flag-pcap>
+        <flag-flagged>no</flag-flagged>
+        <flag-proxy>no</flag-proxy>
+        <flag-url-denied>no</flag-url-denied>
+        <flag-nat>no</flag-nat>
+        <captive-portal>no</captive-portal>
+        <exported>no</exported>
+        <transaction>no</transaction>
+        <pbf-c2s>no</pbf-c2s>
+        <pbf-s2c>no</pbf-s2c>
+        <temporary-match>no</temporary-match>
+        <sym-return>no</sym-return>
+        <decrypt-mirror>no</decrypt-mirror>
+        <proto>udp</proto>
+        <action>allow</action>
+        <cpadding>0</cpadding>
+        <bytes>476</bytes>
+        <bytes_sent>476</bytes_sent>
+        <bytes_received>0</bytes_received>
+        <packets>2</packets>
+        <start>2015/06/03 14:59:40</start>
+        <elapsed>3</elapsed>
+        <category>any</category>
+        <padding>0</padding>
+        <pkts_sent>2</pkts_sent>
+        <pkts_received>0</pkts_received>
+      </entry>
+    </logs>
+  </log>
+  <meta>
+    <devices>
+      <entry name="localhost.localdomain">
+        <hostname>localhost.localdomain</hostname>
+        <vsys>
+          <entry name="vsys1">
+            <display-name>vsys1</display-name>
+          </entry>
+        </vsys>
+      </entry>
+    </devices>
+  </meta>
+</result></response>
