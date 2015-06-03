@@ -4,7 +4,7 @@ module PaloAlto
   module V6
     module LogApi
       MIN_LOG_REQUEST = 20
-      MAX_LOG_REQUEST = 2000
+      MAX_LOG_REQUEST = 5000
 
       # Kicks off a job to generate logs asynchronously
       #
