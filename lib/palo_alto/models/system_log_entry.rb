@@ -4,7 +4,7 @@ module PaloAlto
   module Models
     class SystemLogEntry < PaloAlto::Models::LogEntry
       attr_accessor :domain, :receive_time, :actionflags, :subtype, :config_ver, :time_generated,
-                    :eventid, :fmt, :id, :module, :severity, :opaque
+                    :eventid, :fmt, :id, :module, :severity, :opaque, :object
 
       # Create and returns a new PaloAlto::Models::LogEntry instance with the given parameters
       #
