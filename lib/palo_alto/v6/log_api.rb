@@ -67,29 +67,13 @@ module PaloAlto
       #
       # * +Exception+ - Raises an exception if the request is unsuccessful
       def log_job_complete?(job_id:)
-        status = false
-
-        # configure options for the request
-        options = {}
-        options[:url]     = self.endpoint
-        options[:method]  = :post
-        options[:payload] = { :type     => "log",
-                              :action   => "get",
-                              :"job-id" => job_id,
-                              :key      => self.auth_key }
-
-        html_result = Helpers::Rest.make_request(options)
-
-        raise "Error obtaining log job XML" if html_result.nil?
-
-        # parse the XML data
-        data          = Nokogiri::XML(html_result)
-        response_code = data.xpath('//response/@status').to_s
+        status        = false
+        xml_data      = get_log_xml(job_id: job_id)
+        response_code = get_log_xml_response_code(xml_data: xml_data)
 
         if response_code == "success"
-          # check if the job is finished
-          job_response_code = data.xpath('//response/result/job/status')[0].content.to_s
-          status = true if job_response_code == "FIN"
+          job_status = get_log_job_status(xml_data: xml_data)
+          status = true if job_status == "FIN"
         else
           raise "Error in response XML: #{data.inspect}"
         end
@@ -111,31 +95,15 @@ module PaloAlto
       #
       #  * +Exception+ - Raises an exception if the request is unsuccessful
       def get_logs(job_id:)
-        logs = []
-
-        # configure options for the request
-        options = {}
-        options[:url]     = self.endpoint
-        options[:method]  = :post
-        options[:payload] = { :type     => "log",
-                              :action   => :get,
-                              :'job-id' => job_id,
-                              :key      => self.auth_key }
-
-        html_result = Helpers::Rest.make_request(options)
-
-        raise "Error obtaining logs XML" if html_result.nil?
-
-        # parse the XML data
-        data          = Nokogiri::XML(html_result)
-        response_code = data.xpath('//response/@status').to_s
+        logs          = []
+        xml_data      = get_log_xml(job_id: job_id)
+        response_code = get_log_xml_response_code(xml_data: xml_data)
 
         if response_code == "success"
-          # check if the job is finished
-          job_response_code = data.xpath('//response/result/job/status')[0].content.to_s
+          job_status = get_log_job_status(xml_data: xml_data)
 
-          if job_response_code == "FIN"
-            data.xpath('//response/result/log/logs/*').each do |log_xml|
+          if job_status == "FIN"
+            xml_data.xpath('//response/result/log/logs/*').each do |log_xml|
               logs << PaloAlto::Models::LogEntry.from_xml(xml_data: log_xml)
             end
           else
@@ -146,6 +114,73 @@ module PaloAlto
         end
 
         logs
+      end
+
+      private
+
+      # Retrieves the XML file for a given Job ID and returns the data in XML format
+      #
+      # == Parameters
+      #
+      # * +job_id+ - ID of the job to retrieve data for
+      #
+      # == Returns
+      #
+      # * +Nokogiri::XML::Document+ - XML data structure containing the response data from the job request
+      #
+      # == Raises
+      #
+      # * +Exception+ - Raises an exception if the request is unsuccessful
+      def get_log_xml(job_id:)
+        options = {}
+        options[:url]     = self.endpoint
+        options[:method]  = :post
+        options[:payload] = { :type     => "log",
+                              :action   => :get,
+                              :'job-id' => job_id,
+                              :key      => self.auth_key }
+
+        html_result = Helpers::Rest.make_request(options)
+
+        raise "Error obtaining log job XML" if html_result.nil?
+
+        Nokogiri::XML(html_result)
+      end
+
+      # Retrieves the response code from an XML data object
+      #
+      # == Parameters
+      #
+      # * +xml_data+ - Nokogiri::XML::Document object containing the XML data to parse
+      #
+      # == Returns
+      #
+      # * +String+ - String containing the response code returned in the XML data
+      #
+      # == Raises
+      #
+      # * +Exception+ - Raises an exception if the input data is not a valid Nokogiri::XML::Document
+      def get_log_xml_response_code(xml_data:)
+        raise "xml_data must be a valid Nokogiri::XML::Document type" unless xml_data.is_a?(Nokogiri::XML::Document)
+        xml_data.xpath('//response/@status').to_s
+      end
+
+      # Retrieves the job status from an XML data object
+      #
+      # == Parameters
+      #
+      # * +xml_data+ - Nokogiri::XML::Document object containing the XML data to parse
+      #
+      # == Returns
+      #
+      # * +String+ - String containing the job status returned in the XML data
+      #
+      # == Raises
+      #
+      # * +Exception+ - Raises an exception if the input data is not a valid Nokogiri::XML::Document
+      def get_log_job_status(xml_data:)
+        raise "xml_data must be a valid Nokogiri::XML::Document type" unless xml_data.is_a?(Nokogiri::XML::Document)
+        xml_data.xpath('//response/result/job/status')[0].content.to_s
       end
     end
   end

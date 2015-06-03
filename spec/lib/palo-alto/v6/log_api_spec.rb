@@ -89,7 +89,7 @@ describe "PaloAlto::V6::LogApi" do
       end
 
       it "raises an exception if an error occurred obtaining XML" do
-        expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_raise(Exception)
+        expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(File.open(fixture_file("failure.xml")).read)
         expect{ DummyClass.log_job_complete?(job_id: job_id) }.to raise_exception
       end
     end
@@ -104,10 +104,10 @@ describe "PaloAlto::V6::LogApi" do
     describe "when logs exist" do
       it "parses the XML response into the required format" do
         expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(log_xml)
-        @logs = DummyClass.get_logs(job_id: job_id)
+        logs = DummyClass.get_logs(job_id: job_id)
 
-        expect(@logs).to be_instance_of(Array)
-        expect(@logs).to_not be_empty
+        expect(logs).to be_instance_of(Array)
+        expect(logs).to_not be_empty
       end
     end
 
@@ -126,7 +126,7 @@ describe "PaloAlto::V6::LogApi" do
         expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(pending_log_xml)
       end
 
-      it "returns an Exception" do
+      it "raises an Exception" do
         expect{ DummyClass.get_logs(job_id: job_id) }.to raise_exception
       end
     end
@@ -140,6 +140,78 @@ describe "PaloAlto::V6::LogApi" do
       it "raises an exception if an error occurred reported in the XML" do
         expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(File.open(fixture_file("failure.xml")).read)
         expect{ DummyClass.get_logs(job_id: job_id) }.to raise_exception
+      end
+    end
+  end
+
+  describe "private functions" do
+    describe "get_log_xml" do
+      let(:job_id)          { "2014" }
+      let(:log_xml)         { File.open(fixture_file("traffic_logs.xml")).read }
+      let(:invalid_log_xml) { File.open(fixture_file("invalid_format.xml")).read }
+
+      describe "for valid XML data" do
+        it "parses the XML response into the required format" do
+          expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(log_xml)
+          logs = DummyClass.send(:get_log_xml, { job_id: job_id })
+
+          expect(logs).to be_instance_of(Nokogiri::XML::Document)
+        end
+      end
+
+      describe "for nil response from PaloAlto service" do
+        before do
+          expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(nil)
+        end
+
+        it "raises an Exception" do
+          expect{ DummyClass.send(:get_log_xml, { job_id: job_id }) }.to raise_exception
+        end
+      end
+
+      describe "for invalid XML data" do
+        before do
+          expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(log_xml)
+          expect(Nokogiri::XML::Document).to receive(:parse).and_raise(Exception)
+        end
+
+        it "raises an Exception" do
+          expect{ DummyClass.send(:get_log_xml, { job_id: job_id }) }.to raise_exception
+        end
+      end
+    end
+
+    describe "get_log_xml_response_code" do
+      let(:log_xml)  { File.open(fixture_file("traffic_logs.xml")).read }
+      let(:xml_data) { Nokogiri::XML(log_xml) }
+
+      describe "for a valid Nokogiri::XML::Document" do
+        it "returns the response code" do
+          expect(DummyClass.send(:get_log_xml_response_code, { xml_data: xml_data })).to eq("success")
+        end
+      end
+
+      describe "for an input type that is not a Nokogiri::XML::Document" do
+        it "raises an Exception" do
+          expect{ DummyClass.send(:get_log_xml_response_code, { xml_data: "test" }) }.to raise_exception
+        end
+      end
+    end
+
+    describe "get_log_job_status" do
+      let(:log_xml)  { File.open(fixture_file("traffic_logs.xml")).read }
+      let(:xml_data) { Nokogiri::XML(log_xml) }
+
+      describe "for a valid Nokogiri::XML::Document" do
+        it "returns the response code" do
+          expect(DummyClass.send(:get_log_job_status, { xml_data: xml_data })).to eq("FIN")
+        end
+      end
+
+      describe "for an input type that is not a Nokogiri::XML::Document" do
+        it "raises an Exception" do
+          expect{ DummyClass.send(:get_log_job_status, { xml_data: "test" }) }.to raise_exception
+        end
       end
     end
   end
