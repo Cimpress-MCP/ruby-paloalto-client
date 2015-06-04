@@ -11,6 +11,7 @@ module PaloAlto
       # == Parameters
       #
       #  * +log_type+ - Type of log to generate
+      #  * +query+    - Query string to use for log generation
       #  * +num_logs+ - Number of log entries to query for (check MIN/MAX range for specifics)
       #
       # == Returns
@@ -21,7 +22,7 @@ module PaloAlto
       #
       #  * +Exception+ - Raises an exception if the request is unsuccessful or an
       #                  invalid log_type parameter is passed
-      def generate_logs(log_type:, num_logs: MIN_LOG_REQUEST)
+      def generate_logs(log_type:, query: "", num_logs: MIN_LOG_REQUEST)
         raise "Invalid log_type - must be one of #{PaloAlto::Models::LogEntry::SUPPORTED_TYPES}" unless PaloAlto::Models::LogEntry::SUPPORTED_TYPES.include?(log_type)
         raise "num_logs must be within range (#{MIN_LOG_REQUEST}..#{MAX_LOG_REQUEST})" unless (MIN_LOG_REQUEST..MAX_LOG_REQUEST) === num_logs
 
@@ -34,6 +35,7 @@ module PaloAlto
         options[:payload] = { :type       => "log",
                               :'log-type' => log_type,
                               :key        => self.auth_key,
+                              :query      => query,
                               :nlogs      => num_logs.to_s }
 
         html_result = Helpers::Rest.make_request(options)
