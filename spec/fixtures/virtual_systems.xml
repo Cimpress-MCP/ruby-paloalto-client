@@ -6,6 +6,43 @@
           <security admin="admin" time="2015/03/04 13:46:08">
             <rules admin="admin" time="2015/03/04 13:46:08">
               <entry name="DNS" admin="admin" time="2015/03/04 13:46:07">
+                <option>
+                  <disable-server-response-inspection>no</disable-server-response-inspection>
+                </option>
+                <from>
+                  <member>from1</member>
+                </from>
+                <to>
+                  <member>to1</member>
+                  <member>to2</member>
+                </to>
+                <source>
+                  <member>any</member>
+                </source>
+                <destination>
+                  <member>10.11.12.13-1</member>
+                  <member>1.2.3.4/32</member>
+                </destination>
+                <source-user>
+                  <member>any</member>
+                </source-user>
+                <category>
+                  <member>any</member>
+                </category>
+                <application>
+                  <member>dns</member>
+                </application>
+                <service>
+                  <member>any</member>
+                </service>
+                <hip-profiles>
+                  <member>any</member>
+                </hip-profiles>
+                <log-start>no</log-start>
+                <log-end>yes</log-end>
+                <negate-source>no</negate-source>
+                <negate-destination>no</negate-destination>
+                <action>allow</action>
               </entry>
             </rules>
           </security>

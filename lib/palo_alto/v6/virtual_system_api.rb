@@ -62,7 +62,19 @@ module PaloAlto
             # get all rulebase members for the virtual system
             # TODO: Expand beyond just the security rulebase
             vsys_entry.xpath('rulebase/security/rules/entry').each do |rulebase_entry|
-              vsys.rulebases << PaloAlto::Models::Rulebase.new(name: rulebase_entry.xpath('@name').to_s)
+              vsys.rulebases << PaloAlto::Models::Rulebase.new(name:              rulebase_entry.xpath('@name').to_s,
+                                                               action:            (action = rulebase_entry.xpath('action')[0]) && action.content,
+                                                               from_zones:        (from_zones = rulebase_entry.xpath('from/member')) && from_zones.map{ |z| z.content.strip },
+                                                               to_zones:          (to_zones = rulebase_entry.xpath('to/member')) && to_zones.map{ |z| z.content.strip },
+                                                               sources:           (sources = rulebase_entry.xpath('source/member')) && sources.map{ |z| z.content.strip },
+                                                               destinations:      (destinations = rulebase_entry.xpath('destination/member')) && destinations.map{ |z| z.content.strip },
+                                                               source_users:      (users = rulebase_entry.xpath('source-user/member')) && users.map{ |z| z.content.strip },
+                                                               services:          (services = rulebase_entry.xpath('service/member')) && services.map{ |z| z.content.strip },
+                                                               categories:        (categories = rulebase_entry.xpath('category/member')) && categories.map{ |z| z.content.strip },
+                                                               applications:      (applications = rulebase_entry.xpath('application/member')) && applications.map{ |z| z.content.strip },
+                                                               hip_profiles:      (profiles = rulebase_entry.xpath('hip_profiles/member')) && profiles.map{ |z| z.content.strip },
+                                                               log_session_start: (log_start = rulebase_entry.xpath('log-start')[0]) && log_start.content || "no",
+                                                               log_session_end:   (log_end = rulebase_entry.xpath('log-end')[0]) && log_end.content || "no")
             end
 
             virtual_systems_list << vsys
