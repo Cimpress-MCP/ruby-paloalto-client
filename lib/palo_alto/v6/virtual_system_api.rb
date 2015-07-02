@@ -46,8 +46,10 @@ module PaloAlto
 
             # get all address group members for the virtual system
             vsys_entry.xpath('address-group/entry').each do |address_group_entry|
+              # handle an optional 'description' parameter
+              description   = (desc_xpath = address_group_entry.xpath('description')).empty? ? "" : desc_xpath.first.content
               address_group = PaloAlto::Models::AddressGroup.new(name:        address_group_entry.xpath('@name').to_s,
-                                                                 description: address_group_entry.xpath('description').first.content)
+                                                                 description: description)
 
               # associate addresses with the address group
               address_group_entry.xpath('*/member').each do |address_entry|

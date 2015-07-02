@@ -17,11 +17,12 @@ describe "PaloAlto::V6::VirtualSystemApi" do
   end
 
   describe ".virtual_systems" do
-    let(:virtual_system_xml)                  { File.open(fixture_file("virtual_systems.xml")).read }
-    let(:blank_virtual_system_xml)            { File.open(fixture_file("blank_virtual_systems.xml")).read }
-    let(:no_rulebase_virtual_system_xml)      { File.open(fixture_file("no_rulebase_virtual_systems.xml")).read }
-    let(:no_address_virtual_system_xml)       { File.open(fixture_file("no_address_virtual_systems.xml")).read }
-    let(:no_address_group_virtual_system_xml) { File.open(fixture_file("no_address_group_virtual_systems.xml")).read }
+    let(:virtual_system_xml)                                 { File.open(fixture_file("virtual_systems.xml")).read }
+    let(:blank_virtual_system_xml)                           { File.open(fixture_file("blank_virtual_systems.xml")).read }
+    let(:no_rulebase_virtual_system_xml)                     { File.open(fixture_file("no_rulebase_virtual_systems.xml")).read }
+    let(:no_address_virtual_system_xml)                      { File.open(fixture_file("no_address_virtual_systems.xml")).read }
+    let(:no_address_group_virtual_system_xml)                { File.open(fixture_file("no_address_group_virtual_systems.xml")).read }
+    let(:blank_address_group_description_virtual_system_xml) { File.open(fixture_file("address_group_missing_description.xml")).read }
 
     describe "when virtual systems exist" do
       it "parses the XML response into the required format" do
@@ -64,6 +65,13 @@ describe "PaloAlto::V6::VirtualSystemApi" do
           @virtual_systems = DummyClass.virtual_systems
 
           expect(@virtual_systems[0].address_groups[0].addresses).to_not be_empty
+        end
+
+        it "assigns a blank 'description' when the address group has no description" do
+          expect(PaloAlto::Helpers::Rest).to receive(:make_request).and_return(blank_address_group_description_virtual_system_xml)
+          @virtual_systems = DummyClass.virtual_systems
+
+          expect(@virtual_systems[0].address_groups[0].description).to eq("")
         end
       end
     end
