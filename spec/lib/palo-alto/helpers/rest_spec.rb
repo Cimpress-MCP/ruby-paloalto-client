@@ -12,6 +12,7 @@ describe "PaloAlto::Helpers::Rest" do
                          }
                        }
   let(:final_opts)     { { verify_ssl: OpenSSL::SSL::VERIFY_NONE,
+                           timeout: 60,
                            headers: {
                              "User-Agent"   => "ruby-keystone-client",
                              "Accept"       => "application/xml",

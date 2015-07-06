@@ -23,6 +23,7 @@ module PaloAlto
       def self.make_request(opts)
         options                           = {}
         options[:verify_ssl]              = OpenSSL::SSL::VERIFY_NONE
+        options[:timeout]                 = 60
         options[:headers]                 = {}
         options[:headers]["User-Agent"]   = "ruby-keystone-client"
         options[:headers]["Accept"]       = "application/xml"
