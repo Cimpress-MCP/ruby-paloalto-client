@@ -3,6 +3,7 @@ require "palo_alto/v6/virtual_system_api"
 require "palo_alto/v6/address_api"
 require "palo_alto/v6/address_group_api"
 require "palo_alto/v6/log_api"
+require "palo_alto/v6/commit_api"
 
 module PaloAlto
   module V6
@@ -13,6 +14,7 @@ module PaloAlto
       include PaloAlto::V6::AddressApi
       include PaloAlto::V6::AddressGroupApi
       include PaloAlto::V6::LogApi
+      include PaloAlto::V6::CommitApi
     end
   end
 end

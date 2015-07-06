@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<response status="success">
+  <result>
+    <job>
+      <tenq>2015/07/06 14:17:09</tenq>
+      <id>77</id>
+      <user>test_user</user>
+      <type>Commit</type>
+      <status>FIN</status>
+      <stoppable>no</stoppable>
+      <result>OK</result>
+      <tfin>14:18:30</tfin>
+      <progress>14:18:30</progress>
+      <details>
+        <line>vsys1 (vsys1)</line>
+        <line>    Security Policy:</line>
+        <line>    - Rule 'Deny All' shadows rule 'testa'</line>
+        <line>    - Rule 'Deny All' shadows rule 'testb'</line>
+        <line>(Module: device)</line>
+        <line>Configuration committed successfully</line>
+      </details>
+      <warnings/>
+    </job>
+  </result>
+</response>

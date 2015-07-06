@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<response status="success">
+  <result>
+    <job>
+      <tenq>2015/07/06 14:17:09</tenq>
+      <id>77</id>
+      <user>test_user</user>
+      <type>Commit</type>
+      <status>ACT</status>
+      <stoppable>yes</stoppable>
+      <result>PEND</result>
+      <tfin>Still Active</tfin>
+      <progress>0</progress>
+      <warnings/>
+      <details/>
+    </job>
+  </result>
+</response>
