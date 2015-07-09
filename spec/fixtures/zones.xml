@@ -1,0 +1,18 @@
+<response status="success">
+  <result>
+    <zone>
+      <entry name="inside">
+        <network>
+          <virtual-wire/>
+        </network>
+      </entry>
+      <entry name="outside">
+        <network>
+          <layer3>
+            <member>ethernet1/3</member>
+          </layer3>
+        </network>
+      </entry>
+    </zone>
+  </result>
+</response>
