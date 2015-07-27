@@ -6,6 +6,7 @@ require "palo_alto/v6/log_api"
 require "palo_alto/v6/security_rule_api"
 require "palo_alto/v6/commit_api"
 require "palo_alto/v6/zone_api"
+require "palo_alto/v6/job_api"
 
 module PaloAlto
   module V6
@@ -19,6 +20,7 @@ module PaloAlto
       include PaloAlto::V6::SecurityRuleApi
       include PaloAlto::V6::CommitApi
       include PaloAlto::V6::ZoneApi
+      include PaloAlto::V6::JobApi
     end
   end
 end
