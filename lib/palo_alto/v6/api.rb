@@ -21,6 +21,38 @@ module PaloAlto
       include PaloAlto::V6::CommitApi
       include PaloAlto::V6::ZoneApi
       include PaloAlto::V6::JobApi
+
+
+      # Request a configuration based on the starting XML path.
+      #
+      # == Returns
+      #
+      #  * +Nokogiri::XML::Document+ - Nokogiri XML document to parse information about
+      #
+      # == Raises
+      #
+      #  * +Exception+ - Raises an exception if the request is unsuccessful
+      def xml_config_for(path:)
+        virtual_systems_list = []
+
+        # configure options for the request
+        options = {}
+        options[:url]     = self.endpoint
+        options[:method]  = :post
+        options[:payload] = { type:   "config",
+                              action: "show",
+                              key:    self.auth_key,
+                              xpath:  path }
+
+        html_result = Helpers::Rest.make_request(options)
+
+        raise "Error obtaining virtual system XML" if html_result.nil?
+
+        # parse the XML data
+        data = Nokogiri::XML(html_result)
+        raise "Error in response XML: #{data.inspect}" if data.xpath('//response/@status').to_s != "success"
+        data
+      end
     end
   end
 end
