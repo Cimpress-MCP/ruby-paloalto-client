@@ -74,7 +74,11 @@ module PaloAlto
             # normalize the attributes and dynamically assign them based on the XML data
             xml_data.xpath('.//*').each do |attr|
               unless [ "log_id", "serial", "seqno", "type" ].include?(attr.name)
-                log_instance.send("#{attr.name.gsub('-', '_')}=", attr.content)
+                attr_method = attr.name.gsub('-', '_')
+
+                if log_instance.respond_to?(attr_method)
+                  log_instance.send("#{attr_method}=", attr.content)
+                end
               end
             end
           rescue Exception => e
