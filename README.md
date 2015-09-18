@@ -41,7 +41,7 @@ Or install it yourself as:
 To interface with a PaloAlto API endpoint, start by requiring the PaloAlto library:
 
 ```bash
-require 'palo-alto/client'
+require 'palo_alto/client'
 
 => true
 ```
